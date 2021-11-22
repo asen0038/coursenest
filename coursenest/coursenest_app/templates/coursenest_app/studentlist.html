@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coursenest</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        button {
+          background-color: #2034a4;
+          color: white;
+          padding: 5px 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .head {
+          background-color: #2034a4;
+          overflow: hidden;
+        }
+        .head .webname {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        .bu {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: inline-block;
+        }
+        .save{
+            width: 40px;
+            height: 40px;
+            color: #f35b5b;
+            background-color: #f35b5b;
+            border: solid 1px #000;
+            border-radius: 100%
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+  <div class="webname">
+    <h1>Coursenest</h1>
+  </div>
+  <div class="bu">
+    <input  type="button" value="Logout" onclick="location.href='/coursenest_app'"/>
+  </div>
+  <div class="bu">
+    <input  type="button" value="Profile" onclick="location.href='/coursenest_app/teacherpro/{{ id }}'"/>
+  </div>
+  <div class="bu">
+    <input type="button" value="Home" onclick="location.href='/coursenest_app/teacherdash/{{ id }}'"/>
+  </div>
+</div>
+<div class="body">
+    <br/>
+  <center><h2>Student List</h2></center>
+    <br/>
+</div>
+        <form id="test" method="POST" enctype="multipart/form-data" autocomplete="off" onsubmit="return display()">
+        {% csrf_token %}
+<center><table>
+      <tr>
+        <th>Name</th>
+        <th>Course Grade</th>
+      </tr>
+        {% for student, grade in zipData %}
+            <tr>
+                <td>{{ student.user.first_name }} {{ student.user.last_name }}</td>
+                <td><input type="text" name="mark{{ student.id }}" class="marks" value="{{ grade.mark }}"></td>
+            </tr>
+        {% endfor %}
+</table></center>
+    <br/>
+            <center>
+    <a href="/coursenest_app/coursedetailedit/{{ course.id }}"> <button type="button">Back</button> </a>
+                <input type="submit" value="Save"/>
+                <input type="button" value="Reset" id="reset" />
+                 </center>
+    </form>
+<br/><br/><br/>
+<script>
+  function display() {
+    var r=confirm("Are you sure change this grade?");
+      if (r==true){
+          return true;
+      }
+      else{
+        return false;
+      }
+   }
+  document.getElementById("reset").onclick = function () {
+    let mark_list = document.getElementsByClassName("marks");
+    for(let i=0; i < mark_list.length; i++)
+    {
+        mark_list[i].value = "0";
+    }
+   }
+</script>
+</body>
+</html>

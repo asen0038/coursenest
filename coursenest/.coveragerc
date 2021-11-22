@@ -1,0 +1,15 @@
+[run]
+source = .
+omit =
+   coursenest/asgi.py
+   coursenest/wsgi.py
+   coursenest/settings.py
+   coursenest/urls.py
+   coursenest/__init__.py
+   manage.py
+   */migrations/*
+   */templates/*
+   coursenest_app/__init__.py
+
+[report]
+fail_under = 90

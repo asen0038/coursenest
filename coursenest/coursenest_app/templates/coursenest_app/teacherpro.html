@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, inital-scale=1.0">
+      <title>Coursenest</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        button, .save input {
+          background-color: #2034a4;
+          color: white;
+          padding: 5px 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .head {
+          background-color: #2034a4;
+          overflow: hidden;
+        }
+        .head .webname {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        .bu {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: inline-block;
+        }
+    </style>
+  </head>
+  <center><body>
+      <div class="head">
+          <div class="webname">
+            <h1>Coursenest</h1>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Logout" onclick="location.href='/coursenest_app'"/>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Profile" onclick="location.href='/coursenest_app/teacherpro/{{ id }}'"/>
+          </div>
+          <div class="bu">
+            <input type="button" value="Home" onclick="location.href='/coursenest_app/teacherdash/{{ id }}'"/>
+          </div>
+      </div>
+      <div class="body">
+          <br/>
+          <center><h2>My Profile</h2></center>
+          <br/>
+            <form method="POST" onsubmit="return display()">
+            {% csrf_token %}
+            <div class="profile">
+              <table border="0" width="1000" cellspacing="15" cellpadding="20">
+                <thbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    </tr>
+                </thbody>
+                <thbody>
+                    <tr>
+                        <td>University:</td>
+                        <td>
+                            <input id="university" class="input-row" type="text" name="university"
+                                value="{{ teacher.university }}" placeholder="please set your university" />
+                        </td>
+                    </tr>
+                </thbody>
+                <thbody>
+                    <tr>
+                        <td>Department:</td>
+                        <td>
+                            <input id="department" class="input-row" type="text" name="department"
+                                value="{{ teacher.department }}" placeholder="please set your department" />
+                        </td>
+                    </tr>
+                </thbody>
+                <thbody>
+                    <tr>
+                        <td>Description:</td>
+                        <td><input id="description" type="text" style="height: 80px" name="description"
+                                value="{{ teacher.description }}" placeholder="please set your description" >
+                        </td>
+                    </tr>
+                </thbody>
+              </table>
+            </div>
+                <br/>
+            <div class="save">
+                <input type="submit" value="Save" />
+                <input type="button" value="Reset" id="reset" />
+            </div>
+        </form>
+        </div>
+    </body></center>
+<script>
+    document.getElementById("reset").onclick = function () {
+        document.getElementById("university").value = ""
+        document.getElementById("department").value = ""
+        document.getElementById("description").value = ""
+    }
+    function display() {
+        var r=confirm("Are you sure change this information?");
+        if (r==true){
+            return true;
+        }
+        else{
+          document.getElementById("university").value = "";
+          document.getElementById("department").value = "";
+          document.getElementById("description").value = "";
+          return false;
+        }
+    }
+</script>
+</html>

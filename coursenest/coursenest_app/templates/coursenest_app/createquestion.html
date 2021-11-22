@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, inital-scale=1.0">
+      <title>Coursenest</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        button {
+          background-color: #2034a4;
+          color: white;
+          padding: 5px 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .head {
+          background-color: #2034a4;
+          overflow: hidden;
+        }
+        .head .webname {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        .bu {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: inline-block;
+        }
+        .body form{
+          display: inline-block;
+          width: 250px;
+          text-align: left;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+        }
+    </style>
+  </head>
+  <center><body>
+      <div class="head">
+          <div class="webname">
+            <h1>Coursenest</h1>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Logout" onclick="location.href='/coursenest_app'"/>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Profile" onclick="location.href='/coursenest_app/teacherpro/{{ id }}'"/>
+          </div>
+          <div class="bu">
+            <input type="button" value="Home" onclick="location.href='/coursenest_app/teacherdash/{{ id }}'"/>
+          </div>
+      </div>
+      <div class="body">
+          <br/>
+          <center><h2>Fill Question Details</h2></center>
+          <br/>
+          <a href="/coursenest_app/managequiz/{{ quiz.course_id }}"> <button type="button">Back</button> </a>
+            <form id="add" method="POST" enctype="multipart/form-data" autocomplete="off" onsubmit="return display()">
+                {% csrf_token %}
+                <h5 style="color:red; font: bold;">{{ error }}</h5>
+
+                <label for="answerA">Question:</label><input type="text" id="question_text" name="question_text" placeholder="Input the Question Text!" value="{{ question_text }}">
+                <label for="answerA">Answer A:</label><input type="text" id="answerA" name="answerA" placeholder="Input the text of Answer A" value="{{ answerA }}">
+                <label for="answerB">Answer B:</label><input type="text" id="answerB" name="answerB" placeholder="Input the text of Answer B" value="{{ answerB }}">
+                <label for="answerC">Answer C:</label><input type="text" id="answerC" name="answerC" placeholder="Input the text of Answer C" value="{{ answerC }}">
+                <label for="answerD">Answer D:</label><input type="text" id="answerD" name="answerD" placeholder="Input the text of Answer D" value="{{ answerD }}">
+                <hr>
+                <label for="">Select the correct answer</label>
+                <br>
+                A: <input type="radio" name="answer" value="A">
+                <br>
+                B: <input type="radio" name="answer" value="B">
+                <br>
+                C: <input type="radio" name="answer" value="C">
+                <br>
+                D: <input type="radio" name="answer" value="D">
+                <br>
+                <button type="submit">Add Question</button>
+            </form>
+            <script>
+                function display() {
+                  var r=confirm("Are you sure Add this question?");
+                  if (r==true){
+                      return true;
+                  }
+                  else{
+                    return false;
+                  }  
+                }
+            </script>
+        </div>
+    </body></center>
+</html>

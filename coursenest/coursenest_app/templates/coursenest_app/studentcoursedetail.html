@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, inital-scale=1.0">
+      <title>Coursenest</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        button {
+          background-color: #2034a4;
+          color: white;
+          padding: 5px 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .head {
+          background-color: #2034a4;
+          overflow: hidden;
+        }
+        .head .webname {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        .bu {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: inline-block;
+        }
+    </style>
+  </head>
+  <center><body>
+      <div class="head">
+          <div class="webname">
+            <h1>Coursenest</h1>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Logout" onclick="location.href='/coursenest_app'"/>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Profile" onclick="location.href='/coursenest_app/studentpro/{{ id }}'"/>
+          </div>
+          <div class="bu">
+            <input type="button" value="Home" onclick="location.href='/coursenest_app/studentdash/{{ id }}'"/>
+          </div>
+      </div>
+      <div class="coursedetail">
+          <br/>
+          <center><h1>Course Details</h1></center>
+          <br/>
+          <div> <h6> Unit Code: {{ course.code }} </h6></div> <br/>
+          <div> <h6> Name: {{ course.name }} </h6></div> <br/>
+          <div> <h6> Description: {{ course.description }} </h6></div> <br/>
+          <div> <h6> Teacher Name: {{ teacher.first_name }} {{ teacher.last_name }} </h6></div> <br/>
+      </div>
+      <br/>
+    <center><a href="{% url 'coursenest_app:takequiz' course.id %}"> <button type="button">Take Quiz</button> </a></center>
+   </body></center>
+</html>

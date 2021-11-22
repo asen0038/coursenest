@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coursenest</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        button {
+          background-color: #2034a4;
+          color: white;
+          padding: 5px 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .head {
+          background-color: #2034a4;
+          overflow: hidden;
+        }
+        .head .webname {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        .bu {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: inline-block;
+        }
+        .save{
+            width: 40px;
+            height: 40px;
+            color: #f35b5b;
+            background-color: #f35b5b;
+            border: solid 1px #000;
+            border-radius: 100%
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+  <div class="webname">
+    <h1>Coursenest</h1>
+  </div>
+  <div class="bu">
+    <input  type="button" value="Logout" onclick="location.href='/coursenest_app'"/>
+  </div>
+  <div class="bu">
+    <input  type="button" value="Profile" onclick="location.href='/coursenest_app/teacherpro/{{ id }}'"/>
+  </div>
+  <div class="bu">
+    <input type="button" value="Home" onclick="location.href='/coursenest_app/teacherdash/{{ id }}'"/>
+  </div>
+</div>
+      <div class="body">
+        <center><h2>{{ course.code }} Quiz</h2></center>
+        <a href="/coursenest_app/coursedetailedit/{{ course.id }}"> <button type="button">Back</button> </a>
+        <center><h5>High: {{ high_grade }}</h5></center>
+        <center><h5>Low: {{ low_grade }}</h5></center>
+        <center><h5>Mean: {{ mean_grade }}</h5></center>
+      <center>
+        <div class="quizzes">
+        {% for question, answers, canswer in zipData %}
+        <p style="font-size:30px">{{ question.question }}?</p>
+            {% for anLabel, answer in answers %}
+                {{ anLabel }}: {{ answer.answer }}<br>
+            {% endfor %}
+                Correct Answer: {{ canswer }}<br>
+        {% endfor %}
+        </div>
+      </center>
+      </div>
+    </body>
+</html>

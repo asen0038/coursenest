@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, inital-scale=1.0">
+      <title>Coursenest</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        button {
+          background-color: #2034a4;
+          color: white;
+          padding: 5px 5px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .head {
+          background-color: #2034a4;
+          overflow: hidden;
+        }
+        .head .webname {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        .bu {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: inline-block;
+        }
+        .quizzes{
+          padding-left: 350px;
+        }
+        .save{
+          padding-left: 250px;
+        }
+    </style>
+  </head>
+    <body>
+      <div class="head">
+        <div class="webname">
+          <h1>Coursenest</h1>
+        </div>
+        <div class="lib">
+          <a href="https://www.library.sydney.edu.au/" target="_blank">Library</a>
+        </div>
+          <div class="bu">
+            <input  type="button" value="Logout" onclick="location.href='/coursenest_app'"/>
+          </div>
+          <div class="bu">
+            <input  type="button" value="Profile" onclick="location.href='/coursenest_app/studentpro/{{ id }}'"/>
+          </div>
+          <div class="bu">
+            <input type="button" value="Home" onclick="location.href='/coursenest_app/studentdash/{{ id }}'"/>
+          </div>
+      </div>
+      <div class="body">
+        <center><h2>{{ course.code }} Quiz</h2></center>
+        <form id="test" method="POST" enctype="multipart/form-data" autocomplete="off" onsubmit="return display()">
+        {% csrf_token %}
+        <div class="save">
+            <input type="submit" value="Save"/>
+        </div>
+        <div class="quizzes">
+        {% for question, answers in zipData %}
+        <p style="font-size:30px">{{ question.question }}?</p>
+            {% for anLabel, answer in answers %}
+                {{ anLabel }}: <input type="radio" name="question{{ question.id }}" value="{{ anLabel }}">{{ answer.answer }}</br>
+            {% endfor %}
+        {% endfor %}
+        </div>
+        </form>
+        <script>
+          function display() {
+            var r=confirm("Do you want to submit the quiz?");
+            if (r==true){
+                return true;
+            }
+            else{
+              return false;
+            }  
+          }
+        </script>
+      </div>
+    </body>
+</html>
